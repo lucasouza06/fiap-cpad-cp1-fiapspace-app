@@ -1,6 +1,7 @@
 {
   "expo": {
-    "name": "fiap-cpad-cp1-fiapspace",
+    "scheme": "fiapspace",
+    "name": "FiapSpace",
     "slug": "fiap-cpad-cp1-fiapspace",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -24,6 +25,7 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "plugins": ["expo-router"]
   }
 }
