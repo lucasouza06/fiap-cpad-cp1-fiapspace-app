@@ -26,9 +26,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.15,
     shadowRadius: 4,
   },
-  livre: { backgroundColor: "#e6f9ee" },
+  livre: { backgroundColor: "#e6f9ee", },
   ocupado: { backgroundColor: "#fdecea" },
-  andar: { fontSize: 22, fontWeight: "bold", color: "#222" },
-  status: { fontSize: 16, marginTop: 6, fontWeight: "600" },
-  info: { fontSize: 14, color: "#555", marginTop: 4 },
+  andar: { fontSize: 22, color: "#222", fontFamilly:'sans-serif', fontWeight:500, },
+  status: { fontSize: 16, marginTop: 6, fontFamilly:'sans-serif', fontWeight:500, },
+  info: { fontSize: 14, color: "#555", marginTop: 4 , fontFamilly:'sans-serif', fontWeight:500,},
 });

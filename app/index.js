@@ -4,7 +4,7 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  TouchableOpacity,
+  Pressable, // Trocamos TouchableOpacity por Pressable
 } from "react-native";
 import { useRouter } from "expo-router";
 import AndarCard from "../components/AndarCard";
@@ -56,34 +56,56 @@ export default function HomeScreen() {
         );
       })}
 
-      <TouchableOpacity
-        style={styles.botao}
-        onPress={() => router.push("/eventos")}
-      >
-        <Text style={styles.botaoTexto}>Ver Eventos do Dia</Text>
-      </TouchableOpacity>
+      <View style={{ marginTop: 350 }}> 
+        {/* BOTÃO 1 */}
+        <Pressable
+          onPress={() => router.push("/eventos")}
+          style={({ pressed }) => [
+            styles.botao,
+            { backgroundColor: pressed ? "#ed145b" : "#000" }
+          ]}
+        >
+          {({ pressed }) => (
+            <Text style={[styles.botaoTexto, { color: pressed ? "#fff" : "#ed145b" }]}>
+              Ver Eventos do Dia
+            </Text>
+          )}
+        </Pressable>
 
-      <TouchableOpacity
-        style={[styles.botao, styles.botaoSecundario]}
-        onPress={() => router.push("/cadastro")}
-      >
-        <Text style={styles.botaoTexto}>Cadastrar Evento</Text>
-      </TouchableOpacity>
+        {/* BOTÃO 2 */}
+        <Pressable
+          onPress={() => router.push("/cadastro")}
+          style={({ pressed }) => [
+            styles.botao,
+            styles.botaoSecundario,
+            { backgroundColor: pressed ? "#ed145b" : "#000" }
+          ]}
+        >
+          {({ pressed }) => (
+            <Text style={[styles.botaoTexto, { color: pressed ? "#fff" : "#ed145b" }]}>
+              Cadastrar Evento
+            </Text>
+          )}
+        </Pressable>
+      </View>
     </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f5f5" },
+  container: { flex: 1, backgroundColor: "#000" },
   content: { padding: 20 },
-  subtitulo: { fontSize: 16, color: "#555", marginBottom: 20 },
+  subtitulo: { fontSize: 16, color: "#f5f5f5", marginBottom: 20, fontFamily: 'sans-serif', },
   botao: {
-    backgroundColor: "#ED1C24",
-    borderRadius: 10,
+    backgroundColor: "#000",
+    borderColor: "#ed145b",
+    borderWidth: 2,
     padding: 16,
     alignItems: "center",
     marginTop: 12,
+    
+  
   },
-  botaoSecundario: { backgroundColor: "#333" },
-  botaoTexto: { color: "#fff", fontWeight: "bold", fontSize: 15 },
+  botaoSecundario: { backgroundColor: "#000" },
+  botaoTexto: { fontWeight: "500", fontSize: 15, fontFamily: 'sans-serif', },
 });

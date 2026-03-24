@@ -35,7 +35,7 @@ export default function EventosScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#f5f5f5" },
+  container: { flex: 1, backgroundColor: "#000" },
   content: { padding: 20 },
   centro: {
     flex: 1,
