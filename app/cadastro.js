@@ -12,7 +12,8 @@ import {
 import { useRouter } from "expo-router";
 import { EventosContext } from "./_layout";
 
-const ANDARES_VALIDOS = ["1", "2", "3", "4", "5"];
+// Atualizado para permitir o cadastro nos novos andares (6 e 7)
+const ANDARES_VALIDOS = ["1", "2", "3", "4", "5", "6", "7"];
 
 export default function CadastroScreen() {
   const router = useRouter();
@@ -25,7 +26,7 @@ export default function CadastroScreen() {
   const [salvando, setSalvando] = useState(false);
 
   function salvarEvento() {
-    // Verifica se todos os campos foram preenchidos
+    // Verifica se todos os campos obrigatórios foram preenchidos
     if (!nome || !andar || !inicio || !fim) {
       Alert.alert("Atenção", "Preencha todos os campos!");
       return;
@@ -38,15 +39,15 @@ export default function CadastroScreen() {
       return;
     }
 
-    // Valida se o andar informado está dentro do intervalo permitido
+    // Valida se o andar informado está dentro do novo intervalo permitido (1 a 7)
     if (!ANDARES_VALIDOS.includes(andar)) {
-      Alert.alert("Atenção", "Andar inválido (Escolha de 1 a 5)");
+      Alert.alert("Atenção", "Andar inválido (Escolha de 1 a 7)");
       return;
     }
 
     setSalvando(true);
 
-    // Simula o processo de salvamento antes de atualizar o contexto e navegar de volta
+    // Simula o processo de salvamento antes de atualizar o contexto global
     setTimeout(() => {
       setEventos((prev) => [...prev, { nome, andar, inicio, fim }]);
       setSalvando(false);
@@ -71,12 +72,12 @@ export default function CadastroScreen() {
           placeholderTextColor="#aaa"
         />
 
-        <Text style={styles.label}>Andar (1 a 5)</Text>
+        <Text style={styles.label}>Andar (1 a 7)</Text>
         <TextInput
           style={styles.input}
           value={andar}
           onChangeText={setAndar}
-          placeholder="Ex: 1"
+          placeholder="Ex: 7"
           placeholderTextColor="#aaa"
           keyboardType="numeric"
           maxLength={1}
@@ -132,7 +133,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: "600",
-    color: "#ff2d55",
+    color: "#ED1C24",
     textAlign: "center",
     marginBottom: 24,
   },
@@ -140,7 +141,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#141414",
     borderRadius: 18,
     padding: 20,
-    shadowColor: "#ff2d55",
+    shadowColor: "#ED1C24",
     shadowOffset: { width: 0, height: 6 },
     shadowOpacity: 0.25,
     shadowRadius: 10,
@@ -160,7 +161,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: "#fff",
     borderWidth: 1,
-    borderColor: "#ff2d55",
+    borderColor: "#ED1C24",
   },
   botao: {
     backgroundColor: "#ED1C24",

@@ -5,7 +5,7 @@ import { useRouter } from "expo-router";
 import AndarCard from "../components/AndarCard";
 import { EventosContext } from "./_layout";
 
-const ANDARES = [1, 2, 3, 4, 5];
+const ANDARES = [1, 2, 3, 4, 5, 6, 7];
 
 export default function HomeScreen() {
   const router = useRouter();
