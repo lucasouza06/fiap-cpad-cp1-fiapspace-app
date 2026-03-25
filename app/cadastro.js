@@ -12,6 +12,8 @@ import {
 import { useRouter } from "expo-router";
 import { EventosContext } from "./_layout";
 
+const ANDARES_VALIDOS = ["1", "2", "3", "4", "5"];
+
 export default function CadastroScreen() {
   const router = useRouter();
   const { setEventos } = useContext(EventosContext);
@@ -23,26 +25,32 @@ export default function CadastroScreen() {
   const [salvando, setSalvando] = useState(false);
 
   function salvarEvento() {
+    // Verifica se todos os campos foram preenchidos
     if (!nome || !andar || !inicio || !fim) {
       Alert.alert("Atenção", "Preencha todos os campos!");
       return;
     }
 
+    // Valida se o horário segue o padrão de 24 horas (HH:MM)
     const regexHora = /^([01]\d|2[0-3]):[0-5]\d$/;
     if (!regexHora.test(inicio) || !regexHora.test(fim)) {
       Alert.alert("Atenção", "Horários devem estar no formato HH:MM");
       return;
     }
 
-    if (andar !== "1" && andar !== "2") {
-      Alert.alert("Atenção", "Andar deve ser 1 ou 2");
+    // Valida se o andar informado está dentro do intervalo permitido
+    if (!ANDARES_VALIDOS.includes(andar)) {
+      Alert.alert("Atenção", "Andar inválido (Escolha de 1 a 5)");
       return;
     }
 
     setSalvando(true);
+
+    // Simula o processo de salvamento antes de atualizar o contexto e navegar de volta
     setTimeout(() => {
       setEventos((prev) => [...prev, { nome, andar, inicio, fim }]);
       setSalvando(false);
+
       Alert.alert("Sucesso!", "Evento cadastrado com sucesso.", [
         { text: "OK", onPress: () => router.back() },
       ]);
@@ -63,12 +71,12 @@ export default function CadastroScreen() {
           placeholderTextColor="#aaa"
         />
 
-        <Text style={styles.label}>Andar </Text>
+        <Text style={styles.label}>Andar (1 a 5)</Text>
         <TextInput
           style={styles.input}
           value={andar}
           onChangeText={setAndar}
-          placeholder="1"
+          placeholder="Ex: 1"
           placeholderTextColor="#aaa"
           keyboardType="numeric"
           maxLength={1}
@@ -112,29 +120,22 @@ export default function CadastroScreen() {
   );
 }
 
-/* ===============================
-   ESTILOS – IDENTIDADE FIAP
-   =============================== */
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#0b0b0b", // preto
+    backgroundColor: "#0b0b0b",
   },
-
   content: {
     padding: 20,
     paddingBottom: 40,
   },
-
   title: {
     fontSize: 28,
     fontWeight: "600",
-    color: "#ff2d55", // rosa FIAP
+    color: "#ff2d55",
     textAlign: "center",
     marginBottom: 24,
   },
-
   card: {
     backgroundColor: "#141414",
     borderRadius: 18,
@@ -145,7 +146,6 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 6,
   },
-
   label: {
     fontSize: 14,
     fontWeight: "600",
@@ -153,7 +153,6 @@ const styles = StyleSheet.create({
     marginBottom: 6,
     marginTop: 14,
   },
-
   input: {
     backgroundColor: "#1f1f1f",
     borderRadius: 10,
@@ -163,15 +162,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#ff2d55",
   },
-
   botao: {
-    backgroundColor: "#ED1C24", // vermelho FIAP
+    backgroundColor: "#ED1C24",
     borderRadius: 14,
     padding: 16,
     alignItems: "center",
     marginTop: 32,
   },
-
   botaoTexto: {
     color: "#fff",
     fontWeight: "bold",

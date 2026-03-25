@@ -3,21 +3,19 @@ import { StatusBar } from "expo-status-bar";
 import { useState, createContext } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 
+// Criação do contexto para compartilhamento da lista de eventos entre as telas
 export const EventosContext = createContext(null);
 
-// Componente Customizado para o Título (Invertido)
+// Componente que renderiza o título e a logo na barra superior
 function LogoTitle() {
   return (
     <View style={styles.headerContainer}>
-      {/* O TEXTO VEM PRIMEIRO AGORA */}
       <Text style={styles.headerText}>FIAPSpace</Text>
 
-      {/* A IMAGEM VEM DEPOIS */}
       <Image
         style={styles.logo}
-        // Caminho da sua imagem local
-        source={require('../assets/Captura de tela 2026-03-19 125025.png')} // Verifique se o caminho/extensão estão corretos!
-        resizeMode="contain" 
+        source={require("../assets/Captura de tela 2026-03-19 125025.png")}
+        resizeMode="contain"
       />
     </View>
   );
@@ -29,20 +27,23 @@ export default function Layout() {
   return (
     <EventosContext.Provider value={{ eventos, setEventos }}>
       <StatusBar style="light" />
+
+      {/* Configuração global de navegação das telas */}
       <Stack
         screenOptions={{
           headerStyle: { backgroundColor: "#000" },
           headerTintColor: "#fff",
-          fontFamily: 'sans-serif-light',
+          fontFamily: "sans-serif-light",
         }}
       >
-        <Stack.Screen 
-          name="index" 
-          options={{ 
-            // Usamos o componente customizado com o título invertido
-            headerTitle: () => <LogoTitle /> 
-          }} 
+        {/* Tela principal com componente de título customizado */}
+        <Stack.Screen
+          name="index"
+          options={{
+            headerTitle: () => <LogoTitle />,
+          }}
         />
+
         <Stack.Screen name="eventos" options={{ title: "Eventos do Dia" }} />
         <Stack.Screen name="cadastro" options={{ title: "Cadastrar Evento" }} />
       </Stack>
@@ -52,17 +53,18 @@ export default function Layout() {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    flexDirection: 'row', 
+    flexDirection: "row",
+    alignItems: "center",
   },
   logo: {
-    width: 370,  // Tamanho do logo
+    width: 370,
     height: 35,
-    marginLeft: 40, // ESPAÇO AGORA É À ESQUERDA DA IMAGEM
+    marginLeft: 40,
   },
   headerText: {
-    color: '#fff',
-    fontSize: 20, 
-    fontWeight: '800',
-    fontFamily: 'sans-serif',
+    color: "#ED1C24",
+    fontSize: 20,
+    fontWeight: "800",
+    fontFamily: "sans-serif",
   },
 });
